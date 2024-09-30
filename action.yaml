@@ -13,7 +13,7 @@ inputs:
     default: true
 runs:
   using: docker
-  image: Dockerfile
+  image: docker://ghcr.io/gaborcsardi/build-r-app:latest
   env:
     CODECOV_TOKEN: ${{ inputs.covecov-token }}
     GHCR_TOKEN: ${{ inputs.ghcr-token }}
