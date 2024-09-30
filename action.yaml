@@ -11,7 +11,6 @@ inputs:
     description: |
       Whether to push the built image to the GitHub Container Registry.
     default: true
-outputs:
 runs:
   using: docker
   image: Dockerfile
