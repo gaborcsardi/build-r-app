@@ -16,5 +16,5 @@ runs:
   image: Dockerfile
   env:
     CODECOV_TOKEN: ${{ inputs.covecov-token }}
-    GHCR_TOKEN: ${{ inputs.ghcr-token || github.token }}
+    GHCR_TOKEN: ${{ inputs.ghcr-token }}
     BUILD_R_APP_PUSH: ${{ inputs.push }}
