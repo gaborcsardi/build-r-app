@@ -1,0 +1,21 @@
+name: 'Build a Dockerized R app'
+description: 'Build and publish a Docker container for an R app.'
+inputs:
+  codecov-token:
+    description: |
+      Codecov.io token to upload code coverage.
+  ghcr-token:
+    description: |
+      Token to log in to the GitHub Container Registry.
+  push:
+    description: |
+      Whether to push the built image to the GitHub Container Registry.
+    default: true
+outputs:
+runs:
+  using: docker
+  image: Dockerfile
+  env:
+    CODECOV_TOKEN=${{ inputs.covecov-token }}
+    GHCR_TOKEN=${{ inputs.ghcr-token }}
+    BUILD_R_APP_PUSH=${{ inputs.push }}
