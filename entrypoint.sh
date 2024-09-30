@@ -11,6 +11,8 @@ if [[ -n "$BUILD_R_APP_PUSH" ]]; then
   trap "docker logout ghcr.io" EXIT
   echo ${GHCR_TOKEN} | docker login ghcr.io \
     -u ${GITHUB_REPOSITORY_OWNER} --password-stdin
+  # otherwise the tag name is invalid
+  GITHUB_REPOSITORY=${GITHUB_REPOSITORY:-null}
 fi
 
 if [[ -n "$CODECOV_TOKEN" ]]; then
