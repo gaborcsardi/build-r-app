@@ -2,7 +2,7 @@
 
 if [[ ! -f Dockerfile ]]; then
   echo Using built-in Dockerfile.
-  cp /builder/Dockerfile .
+  DOCKERFILE="-f /builder/Dockerfile"
 else
   echo Using custom Dockerfile from project.
 fi
@@ -20,9 +20,10 @@ if [[ -n "$CODECOV_TOKEN" ]]; then
   SECRET="--secret id=CODECOV_TOKEN"
 fi
 
+export DOCKER_CONFIG=/build
 docker buildx build -t ghcr.io/${GITHUB_REPOSITORY}:latest \
   --target runtime \
-  ${SECRET} \
+  ${DOCKERFILE} ${SECRET} \
   --platform linux/amd64 \
   --build-arg GITHUB_SHA=${GITHUB_SHA} \
   --build-arg GITHUB_REPOSITORY=${GITHUB_REPOSITORY} \
