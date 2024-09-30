@@ -15,6 +15,6 @@ runs:
   using: docker
   image: Dockerfile
   env:
-    CODECOV_TOKEN=${{ inputs.covecov-token }}
-    GHCR_TOKEN=${{ inputs.ghcr-token }}
-    BUILD_R_APP_PUSH=${{ inputs.push }}
+    CODECOV_TOKEN: ${{ inputs.covecov-token }}
+    GHCR_TOKEN: ${{ inputs.ghcr-token }}
+    BUILD_R_APP_PUSH: ${{ inputs.push }}
