@@ -24,6 +24,7 @@ export DOCKER_CONFIG=/build
 docker buildx build -t ghcr.io/${GITHUB_REPOSITORY}:latest \
   --target runtime \
   ${DOCKERFILE} ${SECRET} \
+  --label "org.opencontainers.image.source=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" \
   --platform linux/amd64 \
   --build-arg GITHUB_SHA=${GITHUB_SHA} \
   --build-arg GITHUB_REPOSITORY=${GITHUB_REPOSITORY} \
