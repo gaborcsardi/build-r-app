@@ -11,6 +11,8 @@ else
   echo Using custom Dockerfile from project.
 fi
 
+export DOCKER_CONFIG=/build
+
 if [[ -n "$BUILD_R_APP_PUSH" ]]; then
   trap "docker logout ghcr.io" EXIT
   echo ${GHCR_TOKEN} | docker login ghcr.io \
@@ -24,7 +26,6 @@ if [[ -n "$CODECOV_TOKEN" ]]; then
   SECRET="--secret id=CODECOV_TOKEN"
 fi
 
-export DOCKER_CONFIG=/build
 docker buildx build -t ghcr.io/${GITHUB_REPOSITORY}:latest \
   --target runtime \
   ${DOCKERFILE} ${SECRET} \
