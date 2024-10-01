@@ -15,6 +15,6 @@ runs:
   using: docker
   image: docker://ghcr.io/gaborcsardi/build-r-app:latest
   env:
-    CODECOV_TOKEN: ${{ inputs.covecov-token }}
+    CODECOV_TOKEN: ${{ inputs.codecov-token }}
     GHCR_TOKEN: ${{ inputs.ghcr-token }}
     BUILD_R_APP_PUSH: ${{ inputs.push }}
