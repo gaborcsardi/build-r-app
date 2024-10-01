@@ -1,5 +1,9 @@
 #!/bin/bash -l
 
+if [[ -n "$RUNNER_DEBUG" ]]; then
+  set -x
+fi
+
 if [[ ! -f Dockerfile ]]; then
   echo Using built-in Dockerfile.
   DOCKERFILE="-f /builder/Dockerfile"
