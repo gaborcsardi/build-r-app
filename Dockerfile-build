@@ -20,18 +20,21 @@ WORKDIR /app
 
 # -------------------------------------------------------------------------
 FROM build AS test
-RUN R -q -e 'pak::pkg_install("deps::.", dependencies = TRUE)'
-COPY tests /app/tests
-RUN R -q -e 'testthat::test_local()'
 
 ENV NOT_CRAN=true
-RUN R -q -e 'covr::to_cobertura(print(covr::package_coverage()))'
+COPY test[s] /app/tests
+
+RUN if [ -d /app/tests ]; then \
+      R -q -e 'pak::pkg_install("deps::.", dependencies = TRUE)'; \
+      R -q -e 'testthat::test_local()'; \
+      R -q -e 'covr::to_cobertura(print(covr::package_coverage()))'; \
+    fi
 
 ARG GITHUB_SHA
 ARG GITHUB_REPOSITORY
 ARG GITHUB_REF_NAME
 RUN --mount=type=secret,id=CODECOV_TOKEN \
-    if [ -f /run/secrets/CODECOV_TOKEN ]; then \
+    if [ -d /app/tests ] && [ -f /run/secrets/CODECOV_TOKEN ]; then \
       R -q -e 'download.file("https://cli.codecov.io/latest/linux/codecov", "/usr/local/bin/codecov")' && \
       chmod +x /usr/local/bin/codecov && \
       codecov upload-process --disable-search -f cobertura.xml --plugin noop \
