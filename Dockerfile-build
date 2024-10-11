@@ -45,7 +45,7 @@ RUN --mount=type=secret,id=CODECOV_TOKEN \
 
 # -------------------------------------------------------------------------
 # this will force running the test step
-FROM build AS runtime
+FROM build AS prod
 COPY --from=test /tmp/dummy* /tmp/
 
 # -------------------------------------------------------------------------

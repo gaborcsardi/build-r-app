@@ -27,7 +27,7 @@ if [[ -n "$CODECOV_TOKEN" ]]; then
 fi
 
 docker buildx build -t ghcr.io/${GITHUB_REPOSITORY}:latest \
-  --target runtime \
+  --target prod \
   ${DOCKERFILE} ${SECRET} \
   --label "org.opencontainers.image.source=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" \
   --platform linux/amd64 \
