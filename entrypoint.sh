@@ -13,7 +13,7 @@ fi
 
 export DOCKER_CONFIG=/build
 
-if [[ -n "$BUILD_R_APP_PUSH" ]]; then
+if [[ "$BUILD_R_APP_PUSH" = "true" ]]; then
   trap "docker logout ghcr.io" EXIT
   echo ${GHCR_TOKEN} | docker login ghcr.io \
     -u ${GITHUB_REPOSITORY_OWNER} --password-stdin
@@ -35,6 +35,6 @@ docker buildx build -t ghcr.io/${GITHUB_REPOSITORY}:latest \
   --build-arg GITHUB_REPOSITORY=${GITHUB_REPOSITORY} \
   --build-arg GITHUB_REF_NAME=${GITHUB_REF_NAME} .
 
-if [[ -n "$BUILD_R_APP_PUSH" ]]; then
+if [[ "$BUILD_R_APP_PUSH" = "true" ]]; then
   docker push ghcr.io/${GITHUB_REPOSITORY}:latest
 fi
