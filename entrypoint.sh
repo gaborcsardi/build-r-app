@@ -4,11 +4,14 @@ if [[ -n "$RUNNER_DEBUG" ]]; then
   set -x
 fi
 
-if [[ ! -f Dockerfile ]]; then
+if [[ -f Dockerfile ]]; then
+  echo Using custom Dockerfile from project.
+elif [[ -f ".devcontainer/Dockerfile" ]]; then
+  echo Using dev container Dockerfile from project.
+  DOCKERFILE="-f .devcontainer/Dockerfile"
+else
   echo Using built-in Dockerfile.
   DOCKERFILE="-f /builder/Dockerfile"
-else
-  echo Using custom Dockerfile from project.
 fi
 
 export DOCKER_CONFIG=/build
